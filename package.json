@@ -1,0 +1,46 @@
+{
+  "name": "graphql-talk",
+  "version": "1.0.0",
+  "description": "We'll talk about what Relay is, how it fits in a React tech stack, and talk about the first impressions of the technology -- good and bad -- that we took away from using it in a soon-to-be-in-production application.",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indierojo/graphql-talk.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "webpack"
+  ],
+  "author": "Jon Bullock <jondooger@gmail.com> (http://github.com/indierojo)",
+  "license": "ISC",
+  "homepage": "https://github.com/indierojo/graphql-talk",
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^6.0.0",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "eslint": "^2.5.3",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3",
+    "js-yaml": "^3.5.5",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  }
+}
