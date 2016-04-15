@@ -1,6 +1,6 @@
 Steps So Far
 ------------
-1) Install / Modify boilerplate:
+0. Install / Modify boilerplate:
  - https://github.com/gaearon/react-hot-boilerplate
  - Modified: 
    - update eslint
@@ -13,4 +13,8 @@ Steps So Far
             "parser": "babel-eslint"
         }
      ```
-	- configure babel-loader `babel?presets[]=es2015&presets[]=react&presets[]=stage-0`
+	- add .babelrc:
+     ```
+        {
+           "presets": ["es2015", "react", "stage-0"]
+        }
