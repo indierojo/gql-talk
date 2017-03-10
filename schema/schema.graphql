@@ -1,0 +1,88 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input AddNewPostInput {
+  postTitle: String!
+  postBody: String!
+  clientMutationId: String!
+}
+
+type AddNewPostPayload {
+  postsEdge: PostEdge
+  viewer: User
+  clientMutationId: String!
+}
+
+input DeletePostInput {
+  postId: ID!
+  clientMutationId: String!
+}
+
+type DeletePostPayload {
+  removedPostId: ID
+  postsEdge: PostEdge
+  viewer: User
+  clientMutationId: String!
+}
+
+type Mutation {
+  toggleUserLikes(input: ToggleUserLikesInput!): ToggleUserLikesPayload
+  addNewPost(input: AddNewPostInput!): AddNewPostPayload
+  deletePost(input: DeletePostInput!): DeletePostPayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type post implements Node {
+  id: ID!
+  dateAdded: String
+  title: String
+  body: String
+  comments: [String]
+  userHasLiked: Boolean
+  userCanDelete: Boolean
+  likeCount: Int
+}
+
+type PostConnection {
+  pageInfo: PageInfo!
+  edges: [PostEdge]
+}
+
+type PostEdge {
+  node: post
+  cursor: String!
+}
+
+type Query {
+  node(id: ID!): Node
+  viewer: User
+}
+
+input ToggleUserLikesInput {
+  postId: ID!
+  userLikes: Boolean!
+  clientMutationId: String!
+}
+
+type ToggleUserLikesPayload {
+  post: post
+  clientMutationId: String!
+}
+
+type User implements Node {
+  id: ID!
+  name: String
+  posts(after: String, first: Int, before: String, last: Int): PostConnection
+}

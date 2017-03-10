@@ -1,0 +1,139 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section>
+                <h3>A Brief Introduction to Relay</h3>
+                <h4>by Jon Bullock</h4>
+            </section>
+            <section>
+                <h4>Jon Bullock</h4>
+                <ul>
+                    <li>Twitter: @oldfartatheart</li>
+                    <li>Email: jondooger+reacttalk@gmail.com</li>
+                    <li>Denver Devs Slack: @jonbullock</li>
+                </ul>
+            </section>
+            <section>
+                Overview
+            </section>
+            <section>
+                <ul>
+                    <li>Intro to GraphQL & Relay</li>
+                    <li>Code!</li>
+                    <li>Some Issues</li>
+                    <li>Further Topics</li>
+                    <li>Resources</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                What is Relay?
+            </section>
+        </section>
+        <section>
+            <section>What is GraphQL?</section>
+            <section>
+                <h4>GraphQL:</h4>
+                <ul>
+                    <li>Schema</li>
+                    <li>Executors</li>
+                </ul>
+            </section>
+            <section>vs. REST
+                <img src="img/graphql-v-rest.png"/>
+                <figcaption>From: Petr Bela, Medium (<a target="#" href="https://medium.com/chute-engineering/graphql-in-the-age-of-rest-apis-b10f2bf09bba">LINK</a>)</figcaption>
+            </section>
+        </section>
+            <section>Demo 1: - GraphQL</section>
+        </section>
+        <section>
+            <section>Isn't this talk about Relay though?</section>
+            <section>
+                <h4>Relay Features</h4>
+                <ul>
+                    <li>Non-invasive Container Model</li>
+                    <li>Composable Queries</li>
+                    <li>Intelligent Caching</li>
+                    <li>Type-checked w/ IDE autocomplete</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>More Demos</section>
+            <section>
+                Demo 2: Relay Queries, Relay Composition, Pagination
+            </section>
+            <section>
+                Demo 3: Relay Mutations
+            </section>
+            <section>
+                Demo 4: Putting it all Together
+            </section>
+        </section>
+        <section>
+            <section>Issues</section>
+            <section>
+                <ul>
+                    <li>Large Time Investment to create Graph Schema</li>
+                    <li>No opinion for Client-side only data?</li>
+                    <li>No Subscriptions / changes outside of app (yet)</li>
+                    <li>An Error has occured</li>
+                </ul>
+            </section>
+            <section>
+                <h4>What about Redux?</h4>
+                <figure>
+                    <img src="img/redux_relay_graphql.png" alt="Redux has a simpler learning curve and ies easier to maintain but Relay can scale to more complex applications">
+                    <figcaption>From: Jared Forsyte -- React.js Conf 2016 (<a target="#" href="https://www.youtube.com/watch?v=-jwQ3sGoiXg">LINK</a>)</figcaption>
+                </figure>
+            </section>
+        </section>
+        <section>
+            <h4>Going Further</h4>
+            <ul>
+                <li>Cache / Manual Cache Expiration</li>
+                <li>Transient Data</li>
+                <li>User Specific Queries / Query Root</li>
+                <li>Query Parameters (pagination, sort order, etc...)</li>
+            </ul>
+        </section>
+        <section>
+            <h4>Other Resources</h4>
+            <ul>
+                <li>Data fetching for React applications at Facebook: <a target="#" href="https://www.youtube.com/watch?v=9sc8Pyc51uU">LINK</a></li>
+                <li>Jared Forsyth's Talk on Relay vs. Redux vs. Om/Next: <a target="#" href="https://www.youtube.com/watch?v=-jwQ3sGoiXg">LINK</a></li>
+                <li>Thinking in Relay - <a target="#" href="https://facebook.github.io/relay/docs/thinking-in-relay.html">LINK</a></li>
+                <li>Relay Starter Kit - <a target="#" href="https://github.com/relayjs/relay-starter-kit">LINK</a></li>
+                <li>Official Relay Example Apps - <a target="#" href="https://github.com/facebook/relay/tree/master/examples">LINK</a></li>
+                <li>Falcor (by Netflix) - Similar techonology - <a target="#" href="https://netflix.github.io/falcor/">LINK</a></li>
+            </ul>
+            <br />
+        </section>
+        <section>
+            <h4>Alternative</h4>
+            <ul>
+            </ul>
+        </section>
+    </div>
+</div>
+<script src="js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        dependencies: [
+            // Syntax highlight for <code> elements
+            { src: 'plugin/highlight/highlight.js', callback: function() { hljs.initHighlightingOnLoad(); } },
+            // Zoom in and out with Alt+click
+            { src: 'plugin/zoom-js/zoom.js' }
+        ]
+    });
+</script>
+</body>
+</html>
