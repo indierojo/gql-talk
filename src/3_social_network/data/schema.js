@@ -48,9 +48,9 @@ import {
  * The first method defines the way we resolve an ID to its object.
  * The second defines the way we resolve an object to its GraphQL type.
  */
-var {nodeInterface, nodeField} = nodeDefinitions(
+let {nodeInterface, nodeField} = nodeDefinitions(
   (globalId) => {
-    var {type, id} = fromGlobalId(globalId)
+    let {type, id} = fromGlobalId(globalId)
     if (type === 'User') {
       return getUser(id)
     } else if (type === 'Post') {
@@ -74,7 +74,7 @@ var {nodeInterface, nodeField} = nodeDefinitions(
  * Define your own types here
  */
 
-var userType = new GraphQLObjectType({
+const userType = new GraphQLObjectType({
   name: 'User',
   description: 'A person who uses our app',
   fields: () => ({
@@ -93,7 +93,7 @@ var userType = new GraphQLObjectType({
   interfaces: [nodeInterface]
 })
 
-var postType = new GraphQLObjectType({
+const postType = new GraphQLObjectType({
   name: 'post',
   description: 'A social media post',
   fields: () => ({
@@ -133,14 +133,14 @@ var postType = new GraphQLObjectType({
 /**
  * Define your own connection types here
  */
-var {connectionType: postConnection, edgeType: postEdge} =
+const {connectionType: postConnection, edgeType: postEdge} =
   connectionDefinitions({name: 'Post', nodeType: postType})
 
 /**
  * This is the type that will be the root of our query,
  * and the entry point into our schema.
  */
-var queryType = new GraphQLObjectType({
+const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     node: nodeField,
@@ -233,7 +233,7 @@ const deletePostMutation = mutationWithClientMutationId({
  * This is the type that will be the root of our mutations,
  * and the entry point into performing writes in our schema.
  */
-var mutationType = new GraphQLObjectType({
+const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     toggleUserLikes: toggleUserLikes,
@@ -246,7 +246,7 @@ var mutationType = new GraphQLObjectType({
  * Finally, we construct our schema (whose starting query type is the query
  * type we defined above) and export it.
  */
-export var Schema = new GraphQLSchema({
+export const Schema = new GraphQLSchema({
   query: queryType,
   mutation: mutationType
 })

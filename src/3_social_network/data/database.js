@@ -12,7 +12,7 @@ class User {}
 class Post {}
 
 // Mock data
-var viewer = new User()
+const viewer = new User()
 viewer.id = '1'
 viewer.name = 'Jon B'
 
@@ -37,7 +37,7 @@ const posts = [
     likeCount: 2
   }
 ]
-var nextPostId = posts.length + 1
+let nextPostId = posts.length + 1
 
 const getPost = id => posts.find(w => w.id === id)
 
