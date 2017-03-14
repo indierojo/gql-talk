@@ -83,7 +83,7 @@ export default Relay.createContainer(Post, {
 
 Post.propTypes = {
   post: React.PropTypes.shape({
-    id: React.PropTypes.number,
+    id: React.PropTypes.string,
     body: React.PropTypes.string,
     comments: React.PropTypes.array,
     dateAdded: React.PropTypes.string,
