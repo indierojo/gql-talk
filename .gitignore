@@ -1,6 +1,7 @@
 # IDE artifacts
 .idea/
 *.iml
+.vscode/
 
 # dev artifacts
 npm-debug.log
