@@ -10,14 +10,14 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Relay from 'react-relay';
+import Relay from 'react-relay'
 
 export default class ToggleUserLikesMutation extends Relay.Mutation {
-  getMutation() {
-    return Relay.QL`mutation{toggleUserLikes}`;
+  getMutation () {
+    return Relay.QL`mutation{toggleUserLikes}`
   }
 
-  getFatQuery() {
+  getFatQuery () {
     return Relay.QL`
       fragment on ToggleUserLikesPayload {
         post {
@@ -25,21 +25,20 @@ export default class ToggleUserLikesMutation extends Relay.Mutation {
           likeCount
         }
       }
-    `;
+    `
   }
-  getConfigs() {
+  getConfigs () {
     return [{
       type: 'FIELDS_CHANGE',
       fieldIDs: {
         post: this.props.postId
       }
-    }];
+    }]
   }
-  getVariables() {
+  getVariables () {
     return {
       postId: this.props.postId,
       userLikes: this.props.userLikes
-    };
-    
+    }
   }
 }

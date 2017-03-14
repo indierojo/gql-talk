@@ -10,23 +10,23 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Relay from 'react-relay';
+import Relay from 'react-relay'
 
 export default class AddNewPostMutation extends Relay.Mutation {
-  getMutation() {
-    return Relay.QL`mutation{addNewPost}`;
+  getMutation () {
+    return Relay.QL`mutation{addNewPost}`
   }
 
-  getFatQuery() {
+  getFatQuery () {
     return Relay.QL`
       fragment on AddNewPostPayload {
         viewer {
           posts
         }
       }
-    `;
+    `
   }
-  getConfigs() {
+  getConfigs () {
     return [{
       type: 'RANGE_ADD',
       parentName: 'viewer',
@@ -36,12 +36,12 @@ export default class AddNewPostMutation extends Relay.Mutation {
       rangeBehaviors: {
         '': 'append'
       }
-    }];
+    }]
   }
-  getVariables() {
+  getVariables () {
     return {
       postTitle: this.props.postTitle,
       postBody: this.props.postBody
-    };
+    }
   }
 }

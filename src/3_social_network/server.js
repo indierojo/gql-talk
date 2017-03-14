@@ -20,7 +20,7 @@ graphQLServer.listen(GRAPHQL_PORT, () => console.log(
 ));
 
 // Serve the Relay app
-var compiler = webpack({
+const compiler = webpack({
   entry: path.resolve(__dirname, 'js', 'app.js'),
   module: {
     loaders: [
@@ -33,7 +33,7 @@ var compiler = webpack({
   },
   output: {filename: 'app.js', path: '/'}
 });
-var app = new WebpackDevServer(compiler, {
+const app = new WebpackDevServer(compiler, {
   contentBase: '/public/',
   proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
   publicPath: '/js/',

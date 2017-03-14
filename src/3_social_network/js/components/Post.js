@@ -1,43 +1,31 @@
-import React from 'react';
-import Relay from 'react-relay';
+import React from 'react'
+import Relay from 'react-relay'
 
-import FlatButton from 'material-ui/FlatButton/FlatButton';
-import Card from 'material-ui/Card/Card';
-import CardText from 'material-ui/Card/CardTitle';
-import CardActions from 'material-ui/Card/CardActions';
-import CardHeader from 'material-ui/Card/CardHeader';
-import ActionThumbsUp from 'material-ui/svg-icons/action/thumb-up';
-import ActionDelete from 'material-ui/svg-icons/action/delete';
-import ActionComment from 'material-ui/svg-icons/communication/comment';
+import FlatButton from 'material-ui/FlatButton/FlatButton'
+import Card from 'material-ui/Card/Card'
+import CardText from 'material-ui/Card/CardTitle'
+import CardActions from 'material-ui/Card/CardActions'
+import CardHeader from 'material-ui/Card/CardHeader'
+import ActionThumbsUp from 'material-ui/svg-icons/action/thumb-up'
+import ActionDelete from 'material-ui/svg-icons/action/delete'
+import ActionComment from 'material-ui/svg-icons/communication/comment'
 
-import ToggleUserLikesMutation from '../mutations/ToggleUserLikesMutation';
+import ToggleUserLikesMutation from '../mutations/ToggleUserLikesMutation'
 
 class Post extends React.Component {
-  static propTypes = {
-    viewerId: React.PropTypes.string,
-    post: React.PropTypes.shape({
-      dateAdded: React.PropTypes.string,
-      body: React.PropTypes.string,
-      likeCount: React.PropTypes.number,
-      userHasLiked: React.PropTypes.boolean,
-      userCanDelete: React.PropTypes.boolean,
-      comments: React.PropTypes.array
-    })
-  };
-
-  _toggleUserLikes = (userLikes) => {
+  _toggleUserLikes () {
     Relay.Store.commitUpdate(
       new ToggleUserLikesMutation({
-        userLikes: !userLikes,
+        userLikes: !this.props.post.userHasLiked,
         postId: this.props.post.id
       }), {
         onSuccess: () => console.log(`Toggle Like Mutation was successful`),
         onFailure: () => console.log(`Toggle Like Mutation Failed`)
       }
-    );
+    )
   };
 
-  render() {
+  render () {
     return (
       <Card>
         <CardHeader
@@ -51,20 +39,20 @@ class Post extends React.Component {
         </CardText>
         <CardActions>
           <FlatButton
-            label={this.props.post.likeCount ? "Like (" + this.props.post.likeCount + ")" : "Like"}
+            label={this.props.post.likeCount ? 'Like (' + this.props.post.likeCount + ')' : 'Like'}
             secondary={this.props.post.userHasLiked}
             icon={<ActionThumbsUp />}
-            onClick={this._toggleUserLikes.bind(this, this.props.post.userHasLiked)}
+            onClick={this._toggleUserLikes}
           />
           <FlatButton
-            label="Comment"
+            label='Comment'
             secondary={false}
             icon={<ActionComment />}
           />
-          { this.props.post.userCanDelete ?
-            <FlatButton
-              display=""
-              label="Delete"
+          { this.props.post.userCanDelete
+            ? <FlatButton
+              display=''
+              label='Delete'
               secondary={false}
               icon={<ActionDelete />}
             /> : null
@@ -91,4 +79,17 @@ export default Relay.createContainer(Post, {
       }
     `
   }
-});
+})
+
+Post.propTypes = {
+  post: React.PropTypes.shape({
+    id: React.propTypes.number,
+    body: React.PropTypes.string,
+    comments: React.PropTypes.array,
+    dateAdded: React.PropTypes.string,
+    likeCount: React.PropTypes.number,
+    title: React.PropTypes.string,
+    userHasLiked: React.PropTypes.boolean,
+    userCanDelete: React.PropTypes.boolean
+  })
+}

@@ -16,7 +16,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLID
-} from 'graphql';
+} from 'graphql'
 
 import {
   connectionArgs,
@@ -27,7 +27,7 @@ import {
   nodeDefinitions,
   mutationWithClientMutationId,
   cursorForObjectInConnection
-} from 'graphql-relay';
+} from 'graphql-relay'
 
 import {
   // Import methods that your schema can use to interact with your database
@@ -40,7 +40,7 @@ import {
   userLikesPost,
   addNewPost,
   deletePost
-} from './database';
+} from './database'
 
 /**
  * We get the node interface and field from the Relay library.
@@ -50,25 +50,25 @@ import {
  */
 var {nodeInterface, nodeField} = nodeDefinitions(
   (globalId) => {
-    var {type, id} = fromGlobalId(globalId);
+    var {type, id} = fromGlobalId(globalId)
     if (type === 'User') {
-      return getUser(id);
+      return getUser(id)
     } else if (type === 'Post') {
-      return getPost(id);
+      return getPost(id)
     } else {
-      return null;
+      return null
     }
   },
   (obj) => {
     if (obj instanceof User) {
-      return userType;
-    } else if (obj instanceof Post)  {
-      return postType;
+      return userType
+    } else if (obj instanceof Post) {
+      return postType
     } else {
-      return null;
+      return null
     }
   }
-);
+)
 
 /**
  * Define your own types here
@@ -91,7 +91,7 @@ var userType = new GraphQLObjectType({
     }
   }),
   interfaces: [nodeInterface]
-});
+})
 
 var postType = new GraphQLObjectType({
   name: 'post',
@@ -128,13 +128,13 @@ var postType = new GraphQLObjectType({
     }
   }),
   interfaces: [nodeInterface]
-});
+})
 
 /**
  * Define your own connection types here
  */
 var {connectionType: postConnection, edgeType: postEdge} =
-  connectionDefinitions({name: 'Post', nodeType: postType});
+  connectionDefinitions({name: 'Post', nodeType: postType})
 
 /**
  * This is the type that will be the root of our query,
@@ -150,7 +150,7 @@ var queryType = new GraphQLObjectType({
       resolve: () => getViewer()
     }
   })
-});
+})
 
 const toggleUserLikes = mutationWithClientMutationId({
   name: 'ToggleUserLikes',
@@ -159,8 +159,8 @@ const toggleUserLikes = mutationWithClientMutationId({
     userLikes: { type: new GraphQLNonNull(GraphQLBoolean) }
   },
   mutateAndGetPayload: ({ postId, userLikes }) => {
-    const updatedPostId = userLikesPost(fromGlobalId(postId).id, userLikes);
-    return {id: updatedPostId};
+    const updatedPostId = userLikesPost(fromGlobalId(postId).id, userLikes)
+    return {id: updatedPostId}
   },
   outputFields: {
     post: {
@@ -168,7 +168,7 @@ const toggleUserLikes = mutationWithClientMutationId({
       resolve: ({id}) => getPost(id)
     }
   }
-});
+})
 
 const addNewPostMutation = mutationWithClientMutationId({
   name: 'AddNewPost',
@@ -177,18 +177,18 @@ const addNewPostMutation = mutationWithClientMutationId({
     postBody: { type: new GraphQLNonNull(GraphQLString) }
   },
   mutateAndGetPayload: ({ postTitle, postBody }) => {
-    const newPostId = addNewPost(postTitle, postBody);
-    return { id: newPostId };
+    const newPostId = addNewPost(postTitle, postBody)
+    return { id: newPostId }
   },
   outputFields: {
     postsEdge: {
       type: postEdge,
       resolve: ({id}) => {
-        const post = getPost(id);
+        const post = getPost(id)
         return {
           cursor: cursorForObjectInConnection(getPosts(), post),
           node: post
-        };
+        }
       }
     },
     viewer: {
@@ -196,7 +196,7 @@ const addNewPostMutation = mutationWithClientMutationId({
       resolve: () => getViewer()
     }
   }
-});
+})
 
 const deletePostMutation = mutationWithClientMutationId({
   name: 'DeletePost',
@@ -204,8 +204,8 @@ const deletePostMutation = mutationWithClientMutationId({
     postId: { type: new GraphQLNonNull(GraphQLID) }
   },
   mutateAndGetPayload: ({ postId }) => {
-    const removedPostId = deletePost(fromGlobalId(postId).id);
-    return { removedPostId };
+    const removedPostId = deletePost(fromGlobalId(postId).id)
+    return { removedPostId }
   },
   outputFields: {
     removedPostId: {
@@ -215,11 +215,11 @@ const deletePostMutation = mutationWithClientMutationId({
     postsEdge: {
       type: postEdge,
       resolve: ({removedPostId}) => {
-        const post = getPost(removedPostId);
+        const post = getPost(removedPostId)
         return {
           cursor: cursorForObjectInConnection(getPosts(), post),
           node: post
-        };
+        }
       }
     },
     viewer: {
@@ -227,7 +227,7 @@ const deletePostMutation = mutationWithClientMutationId({
       resolve: () => getViewer()
     }
   }
-});
+})
 
 /**
  * This is the type that will be the root of our mutations,
@@ -240,7 +240,7 @@ var mutationType = new GraphQLObjectType({
     addNewPost: addNewPostMutation,
     deletePost: deletePostMutation
   })
-});
+})
 
 /**
  * Finally, we construct our schema (whose starting query type is the query
@@ -249,4 +249,4 @@ var mutationType = new GraphQLObjectType({
 export var Schema = new GraphQLSchema({
   query: queryType,
   mutation: mutationType
-});
+})
