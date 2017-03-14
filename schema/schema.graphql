@@ -1,30 +1,25 @@
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 input AddNewPostInput {
   postTitle: String!
   postBody: String!
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type AddNewPostPayload {
   postsEdge: PostEdge
   viewer: User
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 input DeletePostInput {
   postId: ID!
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type DeletePostPayload {
   removedPostId: ID
   postsEdge: PostEdge
   viewer: User
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type Mutation {
@@ -33,56 +28,100 @@ type Mutation {
   deletePost(input: DeletePostInput!): DeletePostPayload
 }
 
+# An object with an ID
 interface Node {
+  # The id of the object.
   id: ID!
 }
 
+# Information about pagination in a connection.
 type PageInfo {
+  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
   startCursor: String
+
+  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
+# A social media post
 type post implements Node {
+  # The ID of an object
   id: ID!
+
+  # The date the post was posted
   dateAdded: String
+
+  # The title of the post
   title: String
+
+  # The body of the post
   body: String
+
+  # All the comments on the post
   comments: [String]
+
+  # Has the current user liked the post
   userHasLiked: Boolean
+
+  # The user has permissions to delete the post
   userCanDelete: Boolean
+
+  # The number of likes on the post
   likeCount: Int
 }
 
+# A connection to a list of items.
 type PostConnection {
+  # Information to aid in pagination.
   pageInfo: PageInfo!
+
+  # A list of edges.
   edges: [PostEdge]
 }
 
+# An edge in a connection.
 type PostEdge {
+  # The item at the end of the edge
   node: post
+
+  # A cursor for use in pagination
   cursor: String!
 }
 
 type Query {
-  node(id: ID!): Node
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
   viewer: User
 }
 
 input ToggleUserLikesInput {
   postId: ID!
   userLikes: Boolean!
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type ToggleUserLikesPayload {
   post: post
-  clientMutationId: String!
+  clientMutationId: String
 }
 
+# A person who uses our app
 type User implements Node {
+  # The ID of an object
   id: ID!
+
+  # The username
   name: String
+
+  # A user's posts
   posts(after: String, first: Int, before: String, last: Int): PostConnection
 }
