@@ -13,17 +13,21 @@ import ActionComment from 'material-ui/svg-icons/communication/comment'
 import ToggleUserLikesMutation from '../mutations/ToggleUserLikesMutation'
 
 class Post extends React.Component {
-  _toggleUserLikes () {
-    Relay.Store.commitUpdate(
-      new ToggleUserLikesMutation({
-        userLikes: !this.props.post.userHasLiked,
-        postId: this.props.post.id
-      }), {
-        onSuccess: () => console.log(`Toggle Like Mutation was successful`),
-        onFailure: () => console.log(`Toggle Like Mutation Failed`)
-      }
-    )
-  };
+  constructor () {
+    super()
+    this.toggleUserLikes = () => {
+      console.log(this.props)
+      Relay.Store.commitUpdate(
+        new ToggleUserLikesMutation({
+          userLikes: !this.props.post.userHasLiked,
+          postId: this.props.post.id
+        }), {
+          onSuccess: () => console.log(`Toggle Like Mutation was successful`),
+          onFailure: () => console.log(`Toggle Like Mutation Failed`)
+        }
+      )
+    }
+  }
 
   render () {
     return (
@@ -42,7 +46,7 @@ class Post extends React.Component {
             label={this.props.post.likeCount ? 'Like (' + this.props.post.likeCount + ')' : 'Like'}
             secondary={this.props.post.userHasLiked}
             icon={<ActionThumbsUp />}
-            onClick={this._toggleUserLikes}
+            onClick={this.toggleUserLikes}
           />
           <FlatButton
             label='Comment'

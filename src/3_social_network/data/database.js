@@ -42,7 +42,7 @@ let nextPostId = posts.length + 1
 const getPost = id => posts.find(w => w.id === id)
 
 const userLikesPost = (id, doesUserLike) => {
-  const post = getPost(id)
+  const post = getPost(parseInt(id))
   post.likeCount = post.userHasLiked ? post.likeCount - 1 : post.likeCount + 1
   post.userHasLiked = doesUserLike
   return post.id

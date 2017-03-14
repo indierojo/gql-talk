@@ -1,5 +1,6 @@
 import React from 'react'
 import Relay from 'react-relay'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton'
@@ -8,26 +9,31 @@ import TextField from 'material-ui/TextField/TextField'
 import Post from './Post'
 import AddNewPostMutation from '../mutations/AddNewPostMutation'
 
+injectTapEventPlugin()
+
 class App extends React.Component {
   static get childContextTypes () {
     return { muiTheme: React.PropTypes.object }
   }
 
-  _addNewPost () {
-    const title = document.getElementById('newPostTitle').value
-    const body = document.getElementById('newPostBody').value
-    if (!title || !body) return
+  constructor () {
+    super()
+    this.addNewPost = () => {
+      const title = document.getElementById('newPostTitle').value
+      const body = document.getElementById('newPostBody').value
+      if (!title || !body) return
 
-    Relay.Store.commitUpdate(
-      new AddNewPostMutation({
-        postTitle: title,
-        postBody: body,
-        viewer: this.props.viewer
-      }), {
-        onSuccess: () => console.log(`Add New Post Mutation was successful`),
-        onFailure: () => console.log(`Add New Post Mutation Failed`)
-      }
-    )
+      Relay.Store.commitUpdate(
+        new AddNewPostMutation({
+          postTitle: title,
+          postBody: body,
+          viewer: this.props.viewer
+        }), {
+          onSuccess: () => console.log(`Add New Post Mutation was successful`),
+          onFailure: () => console.log(`Add New Post Mutation Failed`)
+        }
+      )
+    }
   }
 
   getChildContext () {
@@ -43,7 +49,7 @@ class App extends React.Component {
         <TextField defaultValue='Title' id='newPostTitle' />
         <br />
         <TextField defaultValue='Body' multiLine id='newPostBody' />
-        <RaisedButton label='Post' primary onClick={this._addNewPost} />
+        <RaisedButton label='Post' primary onClick={this.addNewPost} />
       </div>
     )
   }
