@@ -7,14 +7,11 @@
  *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
-// Model types
-class User {}
-class Post {}
-
 // Mock data
-const viewer = new User()
-viewer.id = '1'
-viewer.name = 'Jon B'
+const viewer = {
+  id: '1',
+  name: 'Jon B'
+}
 
 const posts = [
   {
@@ -78,7 +75,5 @@ module.exports = {
   getPosts: () => posts,
   userLikesPost,
   addNewPost,
-  deletePost,
-  User,
-  Post
+  deletePost
 }
