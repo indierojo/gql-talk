@@ -16,7 +16,6 @@ class Post extends React.Component {
   constructor () {
     super()
     this.toggleUserLikes = () => {
-      console.log(this.props)
       Relay.Store.commitUpdate(
         new ToggleUserLikesMutation({
           userLikes: !this.props.post.userHasLiked,
@@ -30,11 +29,13 @@ class Post extends React.Component {
   }
 
   render () {
+    const { post } = this.props
+
     return (
       <Card>
         <CardHeader
-          title={this.props.post.title}
-          subtitle={this.props.post.dateAdded}
+          title={post.title}
+          subtitle={post.dateAdded}
           actAsExpander={false}
           showExpandableButton={false}
         />
@@ -43,8 +44,8 @@ class Post extends React.Component {
         </CardText>
         <CardActions>
           <FlatButton
-            label={this.props.post.likeCount ? 'Like (' + this.props.post.likeCount + ')' : 'Like'}
-            secondary={this.props.post.userHasLiked}
+            label={post.likeCount ? 'Like (' + post.likeCount + ')' : 'Like'}
+            secondary={post.userHasLiked}
             icon={<ActionThumbsUp />}
             onClick={this.toggleUserLikes}
           />
@@ -53,7 +54,7 @@ class Post extends React.Component {
             secondary={false}
             icon={<ActionComment />}
           />
-          { this.props.post.userCanDelete
+          { post.userCanDelete
             ? <FlatButton
               display=''
               label='Delete'
