@@ -2,7 +2,7 @@ import React from 'react'
 import Relay from 'react-relay'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton'
 import TextField from 'material-ui/TextField/TextField'
 
@@ -12,10 +12,6 @@ import AddNewPostMutation from '../mutations/AddNewPostMutation'
 injectTapEventPlugin()
 
 class App extends React.Component {
-  static get childContextTypes () {
-    return { muiTheme: React.PropTypes.object }
-  }
-
   constructor () {
     super()
     this.addNewPost = () => {
@@ -36,21 +32,19 @@ class App extends React.Component {
     }
   }
 
-  getChildContext () {
-    return { muiTheme: getMuiTheme() }
-  }
-
   render () {
     return (
-      <div>
-        <h1>{this.props.viewer.name}'s Posts</h1>
-        {this.props.viewer.posts.edges.map(p => <Post key={p.node.id} viewerId={this.props.viewer.id} post={p.node} />)}
-        <h2>New Post:</h2>
-        <TextField defaultValue='Title' id='newPostTitle' />
-        <br />
-        <TextField defaultValue='Body' multiLine id='newPostBody' />
-        <RaisedButton label='Post' primary onClick={this.addNewPost} />
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <h1>{this.props.viewer.name}'s Posts</h1>
+          {this.props.viewer.posts.edges.map(p => <Post key={p.node.id} viewerId={this.props.viewer.id} post={p.node} />)}
+          <h2>New Post:</h2>
+          <TextField defaultValue='Title' id='newPostTitle' />
+          <br />
+          <TextField defaultValue='Body' multiLine id='newPostBody' />
+          <RaisedButton label='Post' primary onClick={this.addNewPost} />
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
